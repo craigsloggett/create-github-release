@@ -1,39 +1,54 @@
-# composite-action-template
+# create-github-release
 
-A GitHub repository template for creating a new Composite Action.
-
-> Composite actions allow you to collect a series of workflow job steps into a single action which you can then run as a single job step in multiple workflows.
+A composite action to automatically create a GitHub release using conventional commits to determine the version number.
 
 ## Usage
 
 ```yaml
-name: Lint
+name: Release
 
-on: pull_request
+on:
+  push:
+    branches:
+    - main
 
 permissions:
-  contents: read
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
-  my-job:
-    name: My Job
+  release:
+    name: GitHub
     runs-on: ubuntu-24.04
+
+    outputs:
+      new-release-published: ${{ steps.release.outputs.new-release-published }}
+      new-release-version: ${{ steps.release.outputs.new-release-version }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Use Composite Action
-        uses: craigsloggett-lab/my-composite-action@v1
+      - name: Create a GitHub Release
+        id: release
+        uses: craigsloggett/create-github-release@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Inputs
 
-| Input            | Required? | Default                    | Description                                        |
-| ---------------- | --------- | -------------------------- | -------------------------------------------------- |
-| `my-input`       | `false`   | `The default description.` | This is my input, there is no other input like it. |
+| Input                                                 | Required? | Default  | Description                                                                                   |
+| ----------------------------------------------------- | --------- | -------- | --------------------------------------------------------------------------------------------- |
+| `semantic-release-version`                            | `false`   | `25.0.2` | The version of semantic-release to use.                                                       |
+| `semantic-release-plugin-git-version`                 | `false`   | `10.0.1` | The version of the semantic-release git plugin to use.                                        |
+| `semantic-release-plugin-conventionalcommits-version` | `false`   | `9.1.0`  | The version of the semantic-release conventional-changelog-conventionalcommits plugin to use. |
+| `github-token`                                        | `true`    |          | The token used to authenticate to GitHub in order to create a new release.                    |
 
 ### Outputs
 
-| Output      | Description                                |
-| ----------- | ------------------------------------------ |
-| `my-output` | The output this composite action produces. |
+| Output                  | Description                                     |
+| ----------------------- | ----------------------------------------------- |
+| `new-release-published` | Whether or not a new version has been released. |
+| `new-release-version`   | The new release version number.                 |
