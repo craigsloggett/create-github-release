@@ -1,25 +1,48 @@
-name: My Composite Action
+name: Create a GitHub Release
 
-description: A composite action that ...
+description: Automatically create a GitHub release using conventional commits to determine the version number.
 
 inputs:
-  my-input:
-    description: This is my input, there is no other input like it.
+  semantic-release-version:
+    description: The version of semantic-release to use.
+    default: 25.0.2
     required: false
-    default: The default description.
+    type: string
+  semantic-release-plugin-git-version:
+    description: The version of the semantic-release git plugin to use.
+    default: 10.0.1
+    required: false
+    type: string
+  semantic-release-plugin-conventionalcommits-version:
+    description: The version of the semantic-release conventional-changelog-conventionalcommits plugin to use.
+    default: 9.1.0
+    required: false
+    type: string
+  github-token:
+    description: The token used to authenticate to GitHub in order to create a new release.
+    required: true
+    type: string
 
 outputs:
-  my-output:
-    description: The output this composite action produces.
-    value: steps.workflow-step.outputs.my-output
+  new-release-published:
+    description: Whether or not a new version has been released.
+    value: ${{ jobs.release.outputs.new-release-published }}
+  new-release-version:
+    description: The new release version number.
+    value: ${{ jobs.release.outputs.new-release-version }}
 
 runs:
   using: composite
   steps:
-    - name: Workflow Step
-      id: workflow-step
-      run: |-
-        printf 'my-output=%s\n' "${MY_INPUT}" >> "${GITHUB_OUTPUT}"
-      shell: sh
+    - name: Checkout
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+    - name: Release
+      id: release
+      uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
+      with:
+        semantic_version: ${{ inputs.semantic-release-version }}
+        extra_plugins: |
+          @semantic-release/git@${{ inputs.semantic-release-plugin-git-version }}
+          conventional-changelog-conventionalcommits@${{ inputs.semantic-release-plugin-conventionalcommits-version }}
       env:
-        MY_INPUT: inputs.my-input
+        GITHUB_TOKEN: ${{ inputs.github-token }}
