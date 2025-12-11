@@ -19,11 +19,13 @@ permissions:
 
 jobs:
   release:
-    name: Release
+    name: GitHub
     runs-on: ubuntu-24.04
+
     outputs:
       new-release-published: ${{ steps.release.outputs.new-release-published }}
       new-release-version: ${{ steps.release.outputs.new-release-version }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
