@@ -1,10 +1,9 @@
 name: Release
 
-on: pull_request
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -26,6 +25,6 @@ jobs:
 
       - name: Create a GitHub Release
         id: release
-        uses: craigsloggett/create-github-release@add-action
+        uses: craigsloggett/create-github-release@d793c7f4eec2a07ee3e011931d1546aa6f94ae90
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
