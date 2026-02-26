@@ -26,10 +26,10 @@ inputs:
 outputs:
   new-release-published:
     description: Whether or not a new version has been released.
-    value: ${{ steps.release.outputs.new-release-published }}
+    value: ${{ steps.release.outputs.new_release_published }}
   new-release-version:
     description: The new release version number.
-    value: ${{ steps.release.outputs.new-release-version }}
+    value: ${{ steps.release.outputs.new_release_version }}
 
 runs:
   using: composite
