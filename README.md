@@ -41,7 +41,7 @@ jobs:
 
 | Input                                                 | Required? | Default  | Description                                                                                   |
 | ----------------------------------------------------- | --------- | -------- | --------------------------------------------------------------------------------------------- |
-| `semantic-release-version`                            | `false`   | `25.0.2` | The version of semantic-release to use.                                                       |
+| `semantic-release-version`                            | `false`   | `25.0.3` | The version of semantic-release to use.                                                       |
 | `semantic-release-plugin-git-version`                 | `false`   | `10.0.1` | The version of the semantic-release git plugin to use.                                        |
 | `semantic-release-plugin-conventionalcommits-version` | `false`   | `9.1.0`  | The version of the semantic-release conventional-changelog-conventionalcommits plugin to use. |
 | `github-token`                                        | `true`    |          | The token used to authenticate to GitHub in order to create a new release.                    |
