@@ -36,6 +36,11 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+    - name: Configure semantic-release
+      run: ${{ github.action_path }}/src/emit_releaserc.sh
+      shell: sh
+
     - name: Release
       id: release
       uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0

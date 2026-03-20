@@ -1,3 +1,34 @@
+#!/bin/sh
+
+set -eu
+
+# Check if a semantic-release configuration already exists in the workspace.
+for file in \
+  .releaserc \
+  .releaserc.yaml \
+  .releaserc.yml \
+  .releaserc.json \
+  .releaserc.js \
+  .releaserc.cjs \
+  .releaserc.mjs \
+  release.config.js \
+  release.config.cjs \
+  release.config.mjs; do
+  if [ -f "${file}" ]; then
+    echo "Found existing semantic-release config: ${file}"
+    exit 0
+  fi
+done
+
+if [ -f package.json ] && grep -q '"release"' package.json; then
+  echo "Found existing semantic-release config in package.json"
+  exit 0
+fi
+
+# No existing config found — emit the default.
+echo "No semantic-release config found, emitting default .releaserc.yml"
+
+cat >.releaserc.yml <<'EOF'
 branches: main
 
 plugins:
@@ -60,3 +91,4 @@ plugins:
           - type: chore
             scope: deps
             section: Dependencies
+EOF
