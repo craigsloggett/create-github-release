@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Lint Workflow Files
-        uses: craigsloggett/lint-github-actions-workflows@e35be5a4bc8d07dd4e9e7410f26205820ae0e064 # v1.0.3
+        uses: craigsloggett/lint-github-actions-workflows@9daa91441aac2bd980998d791e1ee105b7786d64 # v1.0.4
 
   yamllint:
     name: YAML
@@ -24,4 +24,4 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Lint YAML Files
-        uses: craigsloggett/lint-yaml@d6df6800ae5c8ef98e559cd43257cee8f9e9bf87 # v1.0.18
+        uses: craigsloggett/lint-yaml@d2708fff485cb42a0c523143facb47420d364f3e # v1.0.19
