@@ -7,21 +7,17 @@ inputs:
     description: The version of semantic-release to use.
     default: 25.0.3
     required: false
-    type: string
   semantic-release-plugin-git-version:
     description: The version of the semantic-release git plugin to use.
     default: 10.0.1
     required: false
-    type: string
   semantic-release-plugin-conventionalcommits-version:
     description: The version of the semantic-release conventional-changelog-conventionalcommits plugin to use.
     default: 9.3.1
     required: false
-    type: string
   github-token:
     description: The token used to authenticate to GitHub in order to create a new release.
     required: true
-    type: string
 
 outputs:
   new-release-published:
