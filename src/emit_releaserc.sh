@@ -89,6 +89,9 @@ plugins:
           - type: chore
             section: Chores
           - type: chore
+            scope: ci
+            section: CI Dependencies
+          - type: chore
             scope: deps
             section: Dependencies
 EOF
