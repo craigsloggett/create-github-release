@@ -15,8 +15,8 @@ inputs:
     description: The version of the semantic-release conventional-changelog-conventionalcommits plugin to use.
     default: 9.3.1
     required: false
-  github-token:
-    description: The token used to authenticate to GitHub in order to create a new release.
+  token:
+    description: The token used to authenticate to GitHub to create a new release.
     required: true
 
 outputs:
@@ -46,4 +46,4 @@ runs:
           @semantic-release/git@${{ inputs.semantic-release-plugin-git-version }}
           conventional-changelog-conventionalcommits@${{ inputs.semantic-release-plugin-conventionalcommits-version }}
       env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+        GITHUB_TOKEN: ${{ inputs.token }}
